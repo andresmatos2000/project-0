@@ -63,17 +63,19 @@ void Library::organizeBooksByAuthor() {
 }
 
 void Library::organizeBooksByGenre() {
+
     for (Book* book : books) {
         std::string genre = book->getGenre();
         std::map<std::string,std::vector<Book*>>::iterator it = booksByGenre.find(genre);
         if (it == booksByGenre.end()) {
-            std::vector<Book*> bookList;
+            std::vector<Book*> bookList; //Create booklist for genre
             bookList.push_back(book);
             booksByGenre.insert(std::pair<std::string, std::vector<Book*>>(genre, bookList));
         }
         else {
             std::vector<Book*> bookList = it->second;
             bookList.push_back(book);
+            it->second = bookList; //Added this line to itterate through correctly
         }
     }
 }
